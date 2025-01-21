@@ -1,67 +1,94 @@
-Console.Write("Введите первое число для двоичного:");
-double firstBinary = double.Parse(Console.ReadLine()!);
-Console.Write("Введите второе число для двоичного:");
-double secondBinary = double.Parse(Console.ReadLine()!);
 
-Binary binary = new Binary()
+interface IInteger
 {
-    Name = "Двоичное",
-    FirstBinary = firstBinary,
-    SecondBinary = secondBinary
-};
-Console.WriteLine(binary);
-
-Console.Write("Введите первое число для десятичного:");
-double firstDecimal = double.Parse(Console.ReadLine()!);
-Console.Write("Введите второе число для десятичного:");
-double secondDecimal = double.Parse(Console.ReadLine()!);
-
-
-Decimal decimall = new Decimal
-{
-    Name = "Десятичное",
-    FirstDecimal = firstDecimal,
-    SecondDecimal = secondDecimal
-};
-Console.WriteLine(decimall);
-
-
-public abstract class Integer
-{
-    public string? Name { get; set; }
-    public abstract double Add();
-    public abstract double Subtract();
-    public abstract double Multiply();
-    public abstract double Divide();
-
+    IInteger Add(IInteger other);
+    IInteger Subtract(IInteger other);
+    IInteger Multiply(IInteger other);
+    void Print();
+    int Count { get; }
 }
 
-public class Decimal : Integer
+abstract class Integer : IInteger
 {
-    public double FirstDecimal { get; set; }
-    public double SecondDecimal { get; set; }
-    public override double Add() => FirstDecimal + SecondDecimal;
+    List<int> digits;
 
-    public override double Subtract() => FirstDecimal - SecondDecimal;
-    public override double Multiply() => FirstDecimal * SecondDecimal;
-    public override double Divide() => FirstDecimal / SecondDecimal;
-    public override string ToString()
+    public abstract IInteger Add(IInteger other);
+    public abstract IInteger Subtract(IInteger other);
+    public abstract IInteger Multiply(IInteger other);
+    protected List<int> GetDigits() => digits;
+    public int Count => digits.Count;
+}
+
+class Decimal : Integer
+{
+    public Decimal(string v) : base(v) { }
+    public Decimal(List<int> d) : base(d) { }
+    public override IInteger Add(IInteger o)
     {
-        return $"Сложение:{Add():F2}, Вычитание:{Subtract():F2}, Умножение:{Multiply():F2}, Деление:{Divide():F2}";
+        var a = GetDigits(); var b = ((Decimal)o).GetDigits();
+        int c = 0, m = Math.Max(a.Count, b.Count);
+        return new Decimal(r);
+    }
+
+    public override IInteger Subtract(IInteger o)
+    {
+        var a = GetDigits(); var b = ((Decimal)o).GetDigits();
+        int c = 0, m = a.Count;
+        return new Decimal(r);
+    }
+
+    public override IInteger Multiply(IInteger o)
+    {
+        var a = GetDigits(); var b = ((Decimal)o).GetDigits();
+        int m = a.Count, n = b.Count;
+
+        return new Decimal(r);
+    }
+
+    class Binary : Integer
+    {
+        public override IInteger Add(IInteger o)
+        {
+            var a = GetDigits(); var b = ((Binary)o).GetDigits();
+            int c = 0, m = Math.Max(a.Count, b.Count);
+            return new Binary(r);
+        }
+
+        public override IInteger Subtract(IInteger o)
+        {
+            var a = GetDigits(); var b = ((Binary)o).GetDigits();
+            int c = 0, m = a.Count;
+            return new Binary(r);
+        }
+
+        public override IInteger Multiply(IInteger o)
+        {
+            var a = GetDigits(); var b = ((Binary)o).GetDigits();
+            int m = a.Count, n = b.Count;
+            return new Binary(r);
+        }
     }
 }
 
-public class Binary : Integer
+public class Program
 {
-    public double FirstBinary { get; set; }
-    public double SecondBinary { get; set; }
-    public override double Add() => FirstBinary + SecondBinary;
-    public override double Subtract() => FirstBinary - SecondBinary;
-    public override double Multiply() => FirstBinary * SecondBinary;
-    public override double Divide() => FirstBinary / SecondBinary;
-    public override string ToString()
+    public static void Main(string[] args)
     {
-        return $"Сложение:{Add():F2}, Вычитание:{Subtract():F2}, Умножение:{Multiply():F2}, Деление:{Divide():F2}";
+        IInteger d1 = new Decimal("123");
+        IInteger d2 = new Decimal("456");
+        Console.WriteLine("Decimal:");
+        Console.Write($"{d1} + {d2} = "); d1.Add(d2).Print();
+        Console.Write($"{d2} - {d1} = "); d2.Subtract(d1).Print();
+        Console.Write($"{d1} * {d2} = "); d1.Multiply(d2).Print();
+        Console.WriteLine();
+
+        IInteger b1 = new Binary("101");
+        IInteger b2 = new Binary("110");
+        Console.WriteLine("Binary:");
+        Console.Write($"{b1} + {b2} = "); b1.Add(b2).Print();
+        Console.Write($"{b2} - {b1} = "); b2.Subtract(b1).Print();
+        Console.Write($"{b1} * {b2} = "); b1.Multiply(b2).Print();
+        Console.ReadKey();
     }
 }
 
