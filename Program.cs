@@ -7,14 +7,12 @@ public class Program
 
         Console.WriteLine("Десятичное:");
 
-        Console.Write($"Сложение: первое + второе:");
+        Console.Write($"Сложение: первое + второе: ");
         decimal1.Add(decimal2).Print();
-        Console.Write($"Вычитание: второе - первое:");
+        Console.Write($"Вычитание: второе - первое: ");
         decimal2.Subtract(decimal1).Print();
-        Console.Write($"Умножение: первое * второе:");
+        Console.Write($"Умножение: первое * второе: ");
         decimal1.Multiply(decimal2).Print();
-        Console.Write($"Деление: второе / первое:");
-        decimal2.Divide(decimal1).Print();
 
         Console.WriteLine();
 
@@ -24,17 +22,13 @@ public class Program
 
         Console.WriteLine("Двоичное:");
 
-        Console.Write($"Сложение: первое + второе:");
+        Console.Write($"Сложение: первое + второе: ");
         binary1.Add(binary2).Print();
-        Console.Write($"Вычитание: второе - первое:");
+        Console.Write($"Вычитание: второе - первое: ");
         binary2.Subtract(binary1).Print();
-        Console.Write($"Умножение: первое * второе:");
+        Console.Write($"Умножение: первое * второе: ");
         binary1.Multiply(binary2).Print();
-        Console.Write($"Деление: второе / первое:");
-        binary2.Divide(binary1).Print();
 
-        Binary divBinary = (Binary)binary1.Divide(binary2);
-        divBinary.Print();
     }
 }
 
@@ -47,13 +41,14 @@ public abstract class Integer
     public abstract Integer Add(Integer other);
     public abstract Integer Subtract(Integer other);
     public abstract Integer Multiply(Integer other);
-    public abstract Integer Divide(Integer other);
-
     public abstract void Print();
 }
 public class Decimal : Integer
 {
     public Decimal(int[] digits) : base(digits) { }
+
+    //СЛОЖЕНИЕ
+
     public override Integer Add(Integer other)
     {
         Decimal o = (Decimal)other;
@@ -124,12 +119,6 @@ public class Decimal : Integer
         return new Decimal(result.SkipWhile(x => x == 0).ToArray());
     }
 
-    //ДЕЛЕНИЕ
-
-    public override Integer Divide(Integer other)
-    {
-        Decimal o = (Decimal)other;
-    }
 
     public override void Print() => Console.WriteLine(string.Join("", digits.Reverse()));
 }
@@ -139,6 +128,9 @@ public class Decimal : Integer
 public class Binary : Integer
 {
     public Binary(int[] digits) : base(digits) { }
+
+    //СЛОЖЕНИЕ
+
     public override Integer Add(Integer other)
         {
         Binary o = (Binary)other;
@@ -211,16 +203,10 @@ public class Binary : Integer
             }
         }
         return new Binary(result.SkipWhile(x => x == 0).ToArray());
-    }
-
-    //ДЕЛЕНИЕ
-
-    public override Integer Divide(Integer other)
-    {
-        Binary o = (Binary)other;
 
     }
-
     public override void Print() => Console.WriteLine(string.Join("", digits.Reverse()));
+
+
 }
 
