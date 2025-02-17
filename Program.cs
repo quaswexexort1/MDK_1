@@ -1,36 +1,28 @@
-public class Program
-{
-   public static void Main(string[] args)
-    {
-        Decimal decimal1 = new Decimal(new int[] { 123 });
-        Decimal decimal2 = new Decimal(new int[] { 456 });
+Decimal decimal1 = new Decimal(new int[] { 123 });
+Decimal decimal2 = new Decimal(new int[] { 456 });
 
-        Console.WriteLine("Десятичное:");
+Console.WriteLine("Десятичное:");
 
-        Console.Write($"Сложение: первое + второе: ");
-        decimal1.Add(decimal2).Print();
-        Console.Write($"Вычитание: второе - первое: ");
-        decimal2.Subtract(decimal1).Print();
-        Console.Write($"Умножение: первое * второе: ");
-        decimal1.Multiply(decimal2).Print();
+Console.Write($"Сложение: первое + второе: ");
+decimal1.Add(decimal2).Print();
+Console.Write($"Вычитание: второе - первое: ");
+decimal2.Subtract(decimal1).Print();
+Console.Write($"Умножение: первое * второе: ");
+decimal1.Multiply(decimal2).Print();
 
-        Console.WriteLine();
+Console.WriteLine();
 
 
-        Binary binary1 = new Binary(new int[] { 1, 0, 1, 1 });
-        Binary binary2 = new Binary(new int[] { 1, 1, 0, 1 });
+Binary binary1 = new Binary(new int[] { 1, 0, 1, 1 });
+Binary binary2 = new Binary(new int[] { 1, 1, 0, 1 });
+Console.WriteLine("Двоичное:");
 
-        Console.WriteLine("Двоичное:");
-
-        Console.Write($"Сложение: первое + второе: ");
-        binary1.Add(binary2).Print();
-        Console.Write($"Вычитание: второе - первое: ");
-        binary2.Subtract(binary1).Print();
-        Console.Write($"Умножение: первое * второе: ");
-        binary1.Multiply(binary2).Print();
-
-    }
-}
+Console.Write($"Сложение: первое + второе: ");
+binary1.Add(binary2).Print();
+Console.Write($"Вычитание: второе - первое: ");
+binary2.Subtract(binary1).Print();
+Console.Write($"Умножение: первое * второе: ");
+binary1.Multiply(binary2).Print();
 
 
 
@@ -132,7 +124,7 @@ public class Binary : Integer
     //СЛОЖЕНИЕ
 
     public override Integer Add(Integer other)
-        {
+    {
         Binary o = (Binary)other;
         int len = Math.Max(digits.Length, o.digits.Length);
         int[] res = new int[len + 1];
@@ -209,4 +201,3 @@ public class Binary : Integer
 
 
 }
-
